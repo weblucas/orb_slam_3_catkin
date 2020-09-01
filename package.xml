@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>orb_slam_2_catkin</name>
+  <name>orb_slam_3_catkin</name>
   <version>0.0.0</version>
-  <description>orb_slam_2_catkin</description>
+  <description>orb_slam_3_catkin</description>
   <maintainer email="alexander.millane@mavt.ethz.com">Alexander Millane</maintainer>
 
   <license>See package</license>

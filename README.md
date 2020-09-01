@@ -1,4 +1,11 @@
-# orb_slam2_catkin
+# orb_slam3_catkin
+
+adapted from https://github.com/ethz-asl/orb_slam_2_catkin
+
+**Keywords:** CATKIN, ORB_SLAM3, SLAM
+
+===========================================
+# Original readme
 
 ## Overview
 

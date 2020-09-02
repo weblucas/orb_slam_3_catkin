@@ -45,7 +45,7 @@ ExternalProject_Add(orb_slam_3_src
       make -j
   INSTALL_COMMAND
       cp ../orb_slam_3_src/lib/libORB_SLAM3${CMAKE_SHARED_LIBRARY_SUFFIX} ${CATKIN_DEVEL_PREFIX}/lib/ &&
-      cp -r ../orb_slam_3_src/include ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3 &&
+      cp -r ../orb_slam_3_src/include/. ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3 &&
       mkdir -p ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
       cp -r ../orb_slam_3_src/Thirdparty/DBoW2/DBoW2 ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
       cp -r ../orb_slam_3_src/Thirdparty/DBoW2/DUtils ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&

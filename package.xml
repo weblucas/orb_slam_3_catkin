@@ -17,5 +17,6 @@
 
   <depend>eigen</depend>
   <depend>pangolin_catkin</depend>
+  <depend>opencv3_catkin</depend>
 
 </package>

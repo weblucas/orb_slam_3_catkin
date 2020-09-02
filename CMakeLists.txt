@@ -11,6 +11,7 @@ include_directories(${Eigen_INCLUDE_DIRS})
 include(ExternalProject)
 
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/CameraModels)
 
 ExternalProject_Add(orb_slam_3_src
   GIT_REPOSITORY git@github.com:UZ-SLAMLab/ORB_SLAM3.git

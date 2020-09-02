@@ -60,5 +60,5 @@ target_link_libraries(${PROJECT_NAME}
 
 cs_install()
 
-cs_export(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
+cs_export(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/ ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/CameraModels
           CFG_EXTRAS orb_slam_3-extras.cmake)

@@ -12,50 +12,60 @@ include(ExternalProject)
 
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/CameraModels)
+set(ORB_SLAM3_CODE_DIR ${CMAKE_SOURCE_DIR}/ORB_SLAM3) #${CMAKE_SOURCE_DIR}/ORB_SLAM3  
+#set(ORB_SLAM3_BUILD_DIR ${CMAKE_SOURCE_DIR}/build)
+#set(ORB_SLAM3_CODE_DIR ${CMAKE_SOURCE_DIR}/ORB_SLAM3)
+
+
 
 ExternalProject_Add(orb_slam_3_src
-  GIT_REPOSITORY git@github.com:UZ-SLAMLab/ORB_SLAM3.git
+  GIT_REPOSITORY git@github.com:weblucas/ORB_SLAM3.git
+  SOURCE_DIR ${ORB_SLAM3_CODE_DIR} 
+  PREFIX ${CMAKE_SOURCE_DIR}/base
+  #BINARY_DIR ${ORB_SLAM3_BUILD_DIR}
   UPDATE_COMMAND ""
   #PATCH_COMMAND patch -p1 < ${CMAKE_SOURCE_DIR}/fix_usleep.patch
   CONFIGURE_COMMAND
       # Configuring DBoW2
-      mkdir -p ../orb_slam_3_src/Thirdparty/DBoW2/build && 
-      cd ../orb_slam_3_src/Thirdparty/DBoW2/build &&
+      cd ${ORB_SLAM3_CODE_DIR}/Thirdparty/DBoW2 &&
+      mkdir -p build && 
+      cd build &&
       cmake .. -DCMAKE_BUILD_TYPE=Release &&
       # Configuring g2o
-      mkdir -p ../../g2o/build &&
-      cd ../../g2o/build &&
+      cd ${ORB_SLAM3_CODE_DIR}/Thirdparty/g2o &&
+      mkdir -p build &&
+      cd build &&
       cmake .. -DCMAKE_BUILD_TYPE=Release &&
       # Uncompressing the vocabulary
-      cd ../../../Vocabulary &&
-      tar -xf ../../orb_slam_3_src/Vocabulary/ORBvoc.txt.tar.gz &&
+      cd ${ORB_SLAM3_CODE_DIR}/Vocabulary &&
+      tar -xf ${ORB_SLAM3_CODE_DIR}/Vocabulary/ORBvoc.txt.tar.gz &&
       # Configuring the orb slam 3 build
-      mkdir -p ../build &&
-      cd ../build &&
-      cmake .. -DCMAKE_BUILD_TYPE=Release
+      mkdir -p ${ORB_SLAM3_CODE_DIR}/build &&
+      cd ${ORB_SLAM3_CODE_DIR}/build &&
+      cmake .. -DCMAKE_BUILD_TYPE=Debug
   BUILD_COMMAND 
       # Building DBoW2
-      cd ../orb_slam_3_src/Thirdparty/DBoW2/build/ &&
+      cd ${ORB_SLAM3_CODE_DIR}/Thirdparty/DBoW2/build/ &&
       make -j &&
       # Building g2o
-      cd ../../g2o/build/ &&
+      cd ${ORB_SLAM3_CODE_DIR}/Thirdparty/g2o/build/ &&
       make -j &&
       # Building orb slam 2
-      cd ../../../build/ &&
+      cd ${ORB_SLAM3_CODE_DIR}/build/ &&
       make -j
   INSTALL_COMMAND
-      cp ../orb_slam_3_src/lib/libORB_SLAM3${CMAKE_SHARED_LIBRARY_SUFFIX} ${CATKIN_DEVEL_PREFIX}/lib/ &&
-      cp -r ../orb_slam_3_src/include/. ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3 &&
+      cp ${ORB_SLAM3_CODE_DIR}/lib/libORB_SLAM3${CMAKE_SHARED_LIBRARY_SUFFIX} ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp -r ${ORB_SLAM3_CODE_DIR}/include/. ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3 &&
       mkdir -p ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
-      cp -r ../orb_slam_3_src/Thirdparty/DBoW2/DBoW2 ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
-      cp -r ../orb_slam_3_src/Thirdparty/DBoW2/DUtils ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
+      cp -r ${ORB_SLAM3_CODE_DIR}/Thirdparty/DBoW2/DBoW2 ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
+      cp -r ${ORB_SLAM3_CODE_DIR}/Thirdparty/DBoW2/DUtils ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/DBoW2/ &&
       mkdir -p ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/g2o/ &&
-      cp -r ../orb_slam_3_src/Thirdparty/g2o/g2o/ ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/g2o/ &&
-      cp -r ../orb_slam_3_src/Thirdparty/g2o/config.h ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/g2o/
+      cp -r ${ORB_SLAM3_CODE_DIR}/Thirdparty/g2o/g2o/ ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/g2o/ &&
+      cp -r ${ORB_SLAM3_CODE_DIR}/Thirdparty/g2o/config.h ${CATKIN_DEVEL_PREFIX}/include/orb_slam_3/Thirdparty/g2o/
 )
 
 cs_add_library(${PROJECT_NAME} src/dependency_tracker.cpp)
-add_dependencies(${PROJECT_NAME} orb_slam_3_src)
+add_dependencies(${PROJECT_NAME} ${ORB_SLAM3_CODE_DIR})
 target_link_libraries(${PROJECT_NAME}
   ${CATKIN_DEVEL_PREFIX}/lib/libORB_SLAM3${CMAKE_SHARED_LIBRARY_SUFFIX} ${catkin_LIBRARIES})
 

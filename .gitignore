@@ -27,3 +27,6 @@
 *.exe
 *.out
 *.app
+
+ORB_SLAM3
+base

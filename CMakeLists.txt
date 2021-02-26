@@ -19,7 +19,7 @@ set(ORB_SLAM3_CODE_DIR ${CMAKE_SOURCE_DIR}/ORB_SLAM3) #${CMAKE_SOURCE_DIR}/ORB_S
 
 
 ExternalProject_Add(orb_slam_3_src
-  GIT_REPOSITORY git@github.com:weblucas/ORB_SLAM3.git
+  #GIT_REPOSITORY git@github.com:weblucas/ORB_SLAM3_aerial.git
   SOURCE_DIR ${ORB_SLAM3_CODE_DIR} 
   PREFIX ${CMAKE_SOURCE_DIR}/base
   #BINARY_DIR ${ORB_SLAM3_BUILD_DIR}

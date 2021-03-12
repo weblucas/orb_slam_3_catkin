@@ -42,7 +42,7 @@ ExternalProject_Add(orb_slam_3_src
       # Configuring the orb slam 3 build
       mkdir -p ${ORB_SLAM3_CODE_DIR}/build &&
       cd ${ORB_SLAM3_CODE_DIR}/build &&
-      cmake .. -DCMAKE_BUILD_TYPE=Debug
+      cmake .. -DCMAKE_BUILD_TYPE=Release
   BUILD_COMMAND 
       # Building DBoW2
       cd ${ORB_SLAM3_CODE_DIR}/Thirdparty/DBoW2/build/ &&
